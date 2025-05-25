@@ -1,0 +1,69 @@
+
+{% extends "index.html" %}
+
+{% block menu %}
+    {% include "encabezado.html" %}
+{% endblock %}
+
+{%block contenido %}
+<form action="/actualizarPelicula/" method="post" enctype="multipart/form-data" class="container mt-4 border p-4 rounded bg-light">
+    {% csrf_token %}
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label for="txtCodigo" class="form-label fw-bold">Código</label>
+            <input type="text" name="txtCodigo" id="txtCodigo" class="form-control" value="{{pelicula.pelCodigo}}">
+        </div>
+
+        <div class="col-md-6">
+            <label for="txtTitulo" class="form-label fw-bold">Título</label>
+            <input type="text" name="txtTitulo" id="txtTitulo" class="form-control" value="{{pelicula.pelTitulo}}">
+        </div>
+
+        <div class="col-md-6">
+            <label for="txtProtagonista" class="form-label fw-bold">Protagonista</label>
+            <input type="text" name="txtProtagonista" id="txtProtagonista" class="form-control" value="{{pelicula.pelProtagonista}}">
+        </div>
+
+        <div class="col-md-6">
+            <label for="txtDuracion" class="form-label fw-bold">Duración (minutos)</label>
+            <input type="number" name="txtDuracion" id="txtDuracion" class="form-control" value="{{pelicula.pelDuracion}}">
+        </div>
+
+        <div class="col-12">
+            <label for="txtResumen" class="form-label fw-bold">Resumen</label>
+            <textarea name="txtResumen" id="txtResumen" rows="3" class="form-control">{{pelicula.pelResumen}}</textarea>
+        </div>
+
+        <div class="col-md-6">
+            <label for="cbGenero" class="form-label fw-bold">Género</label>
+            <select name="cbGenero" id="cbGenero" class="form-select">
+                <option value="">Seleccione</option>
+                {% for g in generos %}
+                    {% if g.id == pelicula.pelGenero.id %}
+                        <option value="{{ g.id }}" selected>{{ g.genNombre }}</option>
+                    {% else %}
+                        <option value="{{ g.id }}">{{ g.genNombre }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="fileFoto" class="form-label fw-bold">Foto</label>
+            <input type="file" name="fileFoto" id="fileFoto" class="form-control">
+        </div>
+
+        <div class="col-12 text-end">
+            <input type="hidden" name="idPelicula" value="{{ pelicula.id }}">
+            <button type="submit" class="btn btn-secondary mt-3">Actualizar</button>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}
+
+{% block piePagina %}
+    {% include "piePagina.html" %}
+{% endblock %}

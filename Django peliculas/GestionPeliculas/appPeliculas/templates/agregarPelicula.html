@@ -1,0 +1,62 @@
+
+{% extends "index.html" %}
+
+{% block menu %}
+    {% include "encabezado.html" %}
+{% endblock %}
+
+{%block contenido %}
+
+<form action="/agregarPelicula/" method="post" enctype="multipart/form-data" class="w-75 mx-auto mt-4">
+
+    <div class="mb-3">
+        <label for="txtCodigo" class="form-label fw-bold">Código</label>
+        <input type="text" name="txtCodigo" id="txtCodigo" class="form-control" maxlength="10" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="txtTitulo" class="form-label fw-bold">Título</label>
+        <input type="text" name="txtTitulo" id="txtTitulo" class="form-control" maxlength="50" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="txtProtagonista" class="form-label fw-bold">Protagonista</label>
+        <input type="text" name="txtProtagonista" id="txtProtagonista" class="form-control" maxlength="50" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="txtDuracion" class="form-label fw-bold">Duración (minutos)</label>
+        <input type="number" name="txtDuracion" id="txtDuracion" class="form-control" min="1" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="txtResumen" class="form-label fw-bold">Resumen</label>
+        <textarea name="txtResumen" id="txtResumen" class="form-control" rows="4" maxlength="2000" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="fileFoto" class="form-label fw-bold">Foto</label>
+        <input type="file" name="txtFoto" id="txtFoto" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label for="cbGenero" class="form-label fw-bold">Género</label>
+        <select name="cbGenero" id="cbGenero" class="form-select" required>
+            <option value="">Seleccione</option>
+            {% for genero in generos %}
+                <option value="{{ genero.id }}">{{ genero.genNombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Guardar Película</button>
+    </div>
+</form>
+
+
+{% endblock %}
+
+{% block piePagina %}
+    {% include "piepagina.html" %}
+{% endblock %}

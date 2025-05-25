@@ -1,0 +1,27 @@
+
+{% extends "index.html" %}
+
+{% block menu %}
+    {% include "encabezado.html" %}
+{% endblock %}
+
+{%block contenido %}
+
+<h1>Bienvenido al Aplicativo</h1>
+<ul>
+    <li><strong>Genero</strong></li>
+    <li>Agregar Genero</li>
+</ul>
+<ul>
+    <li><strong>Peliculas</strong></li>
+    <li>Agregar Pelicula</li>
+    <li>Listar Peliculas</li>
+    <li>Actualizar Pelicula</li>
+    <li>Eliminar Pelicula</li>
+</ul>
+
+{% endblock %}
+
+{% block piePagina %}
+    {% include "piepagina.html" %}
+{% endblock %}

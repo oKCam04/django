@@ -1,0 +1,73 @@
+{% extends "index.html" %}
+
+{% block menu %}
+    {% include "encabezado.html" %}
+{% endblock %}
+
+{% block contenido %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="container mt-5">
+    <h3 class="text-center mb-4">LISTADO DE PELICULAS</h3>
+    <div class="d-flex justify-content-end mb-3">
+    <a href="{% url 'vistaAgregarPelicula' %}" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Agregar Película
+    </a>
+</div>
+
+
+    <table class="table table-bordered text-center align-middle">
+        <thead class="table-secondary">
+            <tr>
+                <th>Código</th>
+                <th>Título</th>
+                <th>Protagonista</th>
+                <th>Duración</th>
+                <th>Resumen</th>
+                <th>Foto</th>
+                <th>Género</th>
+                <th>Acción</th>  
+            </tr>
+        </thead>
+        <tbody>
+            {% for pelicula in peliculas %}
+            <tr>
+                <td>{{ pelicula.pelCodigo }}</td>
+                <td>{{ pelicula.pelTitulo }}</td>
+                <td>{{ pelicula.pelProtagonista }}</td>
+                <td>{{ pelicula.pelDuracion }}</td>
+                <td>{{ pelicula.pelResumen }}</td>
+                <td>
+                    {% if pelicula.pelFoto %}
+                        <img src="{{ pelicula.pelFoto.url }}" alt="Foto" width="80" height="80">
+                    {% else %}
+                        <span class="text-muted">Sin imagen</span>
+                    {% endif %}
+                </td>
+                <td>{{ pelicula.Genero.genNombre }}</td>
+                <td>
+                    <a href="{% url 'editarPelicula' pelicula.id %}" class="text-warning me-2">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a href="{% url 'eliminarPelicula' pelicula.id %}" class="text-danger" onclick="return confirm('¿Estás seguro de eliminar esta película?');">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<br><br>
+{% endblock %}
+
+{% block piePagina %}
+    {% include "piepagina.html" %}
+{% endblock %}
